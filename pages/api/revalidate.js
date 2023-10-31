@@ -1,4 +1,4 @@
-import revalidatePath from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import BLOG from '@/blog.config'
 
 /**
@@ -11,6 +11,9 @@ export default async function handler(req, res) {
     const { revalidateSecret } = req.body
     if (revalidateSecret === BLOG.NEXT_REVALIDATE_SECRET) {
       revalidatePath('/')
+      res.status(200).json({ status: 'success', message: 'Revalidate success' })
+    } else {
+      res.status(403).json({ status: 'error', message: 'Invalid secret' })
     }
   } else {
     res.status(405).json({ status: 'error', message: 'Method not allowed' })
