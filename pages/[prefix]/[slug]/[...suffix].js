@@ -31,7 +31,7 @@ export async function getStaticPaths() {
   const from = 'slug-paths'
   const { allPages } = await getGlobalData({ from })
   return {
-    paths: allPages?.filter(row => hasMultipleSlashes(row.slug) && row.type.indexOf('Menu') < 0).map(row => ({ params: { prefix: row.slug.split('/')[0], slug: row.slug.split('/')[1], suffix: row.slug.split('/').slice(1) } })),
+    paths: allPages?.filter(row => hasMultipleSlashes(row.slug) && row.type.indexOf('Menu') < 0).map(row => ({ params: { prefix: row.slug.split('/')[0], slug: row.slug.split('/')[1], suffix: row.slug.split('/').slice(2) } })),
     fallback: true
   }
 }
@@ -67,7 +67,7 @@ export async function getStaticProps({ params: { prefix, slug, suffix } }) {
   // 无法获取文章
   if (!props?.post) {
     props.post = null
-    return { props, revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) }
+    return { props, revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false }
   }
 
   // 文章内容加载
@@ -95,7 +95,7 @@ export async function getStaticProps({ params: { prefix, slug, suffix } }) {
   delete props.allPages
   return {
     props,
-    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND)
+    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false
   }
 }
 

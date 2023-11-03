@@ -121,7 +121,7 @@ export async function getStaticProps({ params: { prefix } }) {
   // 无法获取文章
   if (!props?.post) {
     props.post = null
-    return { props, revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) }
+    return { props, revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false }
   }
 
   // 文章内容加载
@@ -150,7 +150,7 @@ export async function getStaticProps({ params: { prefix } }) {
   delete props.allPages
   return {
     props,
-    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND)
+    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false
   }
 }
 

@@ -55,7 +55,7 @@ export async function getStaticProps({ params: { category } }) {
 
   return {
     props,
-    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND)
+    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false
   }
 }
 

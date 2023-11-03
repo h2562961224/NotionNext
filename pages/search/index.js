@@ -58,7 +58,7 @@ export async function getStaticProps() {
   props.posts = allPages?.filter(page => page.type === 'Post' && page.status === 'Published')
   return {
     props,
-    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND)
+    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false
   }
 }
 

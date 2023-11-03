@@ -69,7 +69,7 @@ export async function getStaticProps() {
       meta,
       ...props
     },
-    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND)
+    revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) || false
   }
 }
 
