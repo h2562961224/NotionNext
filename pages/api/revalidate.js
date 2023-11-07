@@ -36,11 +36,12 @@ function fetchAllPathFromGlobalData({ allPages, categoryOptions, tagOptions, pos
 
   categoryOptions.forEach(({ name: category, count }) => {
     if (relatedCategories.has(category)) {
-      categoryPaths.push(`/category/${category}`)
+      const encodedCategory = encodeURI(category)
+      categoryPaths.push(`/category/${encodedCategory}`)
       const totalPages = Math.ceil(count / BLOG.POSTS_PER_PAGE)
       if (totalPages > 1) {
         for (let i = 1; i <= totalPages; i++) {
-          categoryPagePaths.push(`/category/${category}/page/${i}`)
+          categoryPagePaths.push(`/category/${encodedCategory}/page/${i}`)
         }
       }
     }
@@ -54,11 +55,12 @@ function fetchAllPathFromGlobalData({ allPages, categoryOptions, tagOptions, pos
 
   tagOptions.forEach(({ name: tag, count }) => {
     if (relatedTags.has(tag)) {
-      categoryPaths.push(`/tag/${tag}`)
+      const encodedTag = encodeURI(tag)
+      categoryPaths.push(`/tag/${encodedTag}`)
       const totalPages = Math.ceil(count / BLOG.POSTS_PER_PAGE)
       if (totalPages > 1) {
         for (let i = 1; i <= totalPages; i++) {
-          categoryPagePaths.push(`/tag/${tag}/page/${i}`)
+          categoryPagePaths.push(`/tag/${encodedTag}/page/${i}`)
         }
       }
     }
