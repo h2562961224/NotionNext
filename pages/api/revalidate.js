@@ -87,11 +87,12 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { revalidateSecret, slugs } = req.body
     if (revalidateSecret === BLOG.NEXT_REVALIDATE_SECRET) {
-      getGlobalData({ from: 'revalidate' }).then(data => fetchAllPathFromGlobalData(data, slugs)).then(paths => paths.forEach(element => {
-        res.revalidate(element)
-      })).then(() => {
-        res.status(200).json({ status: 'success', message: 'Revalidate success' })
-      })
+      const paths = await getGlobalData({ from: 'revalidate' }).then(data => fetchAllPathFromGlobalData(data, slugs))
+      for (let i = 0; i < paths.length; i++) {
+        const path = paths[i]
+        await res.revalidate(path)
+      }
+      res.status(200).json({ status: 'success', message: 'Revalidate success' })
     } else {
       res.status(403).json({ status: 'error', message: 'Invalid secret' })
     }
