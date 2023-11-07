@@ -94,9 +94,9 @@ module.exports = withBundleAnalyzer({
     config.resolve.alias['@theme-components'] = path.resolve(__dirname, 'themes', THEME)
     return config
   },
-  experimental: {
-    scrollRestoration: true
-  },
+  // experimental: {
+  //   scrollRestoration: true
+  // },
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     // 导出时 忽略/pages/sitemap.xml.js ， 否则报错getServerSideProps
     const pages = { ...defaultPathMap }
