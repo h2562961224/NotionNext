@@ -88,6 +88,7 @@ export default async function handler(req, res) {
     const { revalidateSecret, slugs } = req.body
     if (revalidateSecret === BLOG.NEXT_REVALIDATE_SECRET) {
       const paths = await getGlobalData({ from: 'revalidate' }).then(data => fetchAllPathFromGlobalData(data, slugs))
+      console.log('revalidate paths: ', paths)
       for (let i = 0; i < paths.length; i++) {
         const path = paths[i]
         await res.revalidate(path)
